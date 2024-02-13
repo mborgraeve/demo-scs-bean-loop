@@ -1,0 +1,34 @@
+spring:
+  cloud:
+    function:
+      definition: passThroughProcessor
+    stream:
+      bindings:
+        passThroughProcessor-in-0:
+          destination: IN
+          group: loop_consumer_group
+          binder: kafka-local
+        passThroughProcessor-out-0:
+          destination: OUT
+          binder: kafka-local
+      default:
+        consumer:
+          concurrency: 1
+        producer:
+          headerMode: none
+      kafka:
+        default:
+          producer:
+            header-patterns: "!message_key"
+            message-key-expression: "headers['message_key']"
+            configuration:
+              key:
+                serializer: org.apache.kafka.common.serialization.StringSerializer
+      binders:
+        kafka-local:
+          type: kafka
+          environment:
+            spring.cloud.stream.kafka.binder:
+              brokers: localhost:9092
+              configuration:
+                security.protocol: PLAINTEXT

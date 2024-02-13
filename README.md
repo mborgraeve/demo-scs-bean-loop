@@ -1,2 +1,3 @@
-# demo-scs-bean-loop
-This is a minimal project to show a possible bug on SCS
+# Purpose
+
+This project aims at reproducing a behavior we suspect to be a bug. It should be minimal enough to easily reproduce the behavior.
