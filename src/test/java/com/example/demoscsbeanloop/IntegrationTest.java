@@ -1,8 +1,5 @@
 package com.example.demoscsbeanloop;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.awaitility.Awaitility.await;
 
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
@@ -11,9 +8,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cloud.stream.config.BindingServiceProperties;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
@@ -22,7 +17,6 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
 
-import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 
@@ -39,10 +33,6 @@ class IntegrationTest {
     private static KafkaContainer container;
     private static Producer<String, String> producer;
     private static Consumer<String, String> consumer;
-
-    @Autowired
-    private BindingServiceProperties bindingServiceProperties;
-
 
     @DynamicPropertySource
     public static void appProperties(DynamicPropertyRegistry registry) {
