@@ -1,14 +1,14 @@
 spring:
   cloud:
     function:
-      definition: passThroughProcessor
+      definition: passThroughProcessor|nulledReturnProcessor
     stream:
       bindings:
-        passThroughProcessor-in-0:
+        passThroughProcessor|nulledReturnProcessor-in-0:
           destination: IN
           group: loop_consumer_group
           binder: kafka-local
-        passThroughProcessor-out-0:
+        passThroughProcessor|nulledReturnProcessor-out-0:
           destination: OUT
           binder: kafka-local
       default:

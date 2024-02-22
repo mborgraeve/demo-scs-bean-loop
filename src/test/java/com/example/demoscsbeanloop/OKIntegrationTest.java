@@ -1,6 +1,9 @@
 package com.example.demoscsbeanloop;
 
 
+import static java.time.temporal.ChronoUnit.SECONDS;
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.Producer;
@@ -12,23 +15,24 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.*;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 
 
 @Tag("integration")
+@ActiveProfiles("ok")
 @SpringBootTest
-class IntegrationTest {
+class OKIntegrationTest {
 
     public static final String SOME_VALUE = "someValue";
     public static final String KEY = "key";
     private static final String KAFKA_BINDER = "kafka-local";
-    private static final String INPUT_TOPIC_NAME = "IN ";
+    private static final String INPUT_TOPIC_NAME = "IN";
     private static final String OUTPUT_TOPIC_NAME = "OUT";
     private static KafkaContainer container;
     private static Producer<String, String> producer;
@@ -84,10 +88,10 @@ class IntegrationTest {
 
         // get the response back fi we wanted to
         // But for demo of the loop issue we don't need to read
-        // var result = consumer.poll(Duration.of(1, SECONDS));
+         var result = consumer.poll(Duration.of(30, SECONDS));
 
         //assertions
-//        assertThat(result.count()).isEqualTo(1);
+        assertThat(result.count()).isZero();
 //        assertThat(result.iterator().next().value()).isEqualTo(SOME_VALUE);
     }
 

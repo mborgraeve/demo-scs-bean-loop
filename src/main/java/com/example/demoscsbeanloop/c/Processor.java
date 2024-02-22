@@ -5,6 +5,6 @@ import java.util.Map;
 @FunctionalInterface
 public interface Processor {
 
-     Map<String, String> process(Map<String, String> input);
+     Object process(Object input);
 
 }
